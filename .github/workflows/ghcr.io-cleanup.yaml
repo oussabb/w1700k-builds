@@ -1,7 +1,7 @@
 name: daily ghcr.io image cleanup
 on:
-  schedule:
-    - cron: '30 1 * * *'
+  #schedule:
+  #  - cron: '30 1 * * *'
   workflow_dispatch:
 permissions: write-all
 env:
