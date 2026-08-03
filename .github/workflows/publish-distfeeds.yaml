@@ -3,9 +3,9 @@
 
 name: publish-distfeeds
 on:
-  schedule:
+  #schedule:
     # Every hour — checks kmods page and only runs full extraction if updated
-    - cron: '42 * * * *'
+   # - cron: '42 * * * *'
   workflow_dispatch:
 permissions: write-all
 env:
