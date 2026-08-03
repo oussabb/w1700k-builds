@@ -1,0 +1,18 @@
+From: patches <patches@openwrt.org>
+Subject: [PATCH] tcp: fix recvmsg version guard for kernel 6.16+
+
+The addr_len parameter was dropped from proto_ops->recvmsg in kernel
+6.16, but the version guard incorrectly used 7.1.0. Fix the cutoff
+to match.
+
+--- a/drivers/net/ovpn/tcp.c
++++ b/drivers/net/ovpn/tcp.c
+@@ -167,7 +167,7 @@
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(5, 19, 0)
+ static int ovpn_tcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
+ 			    int noblock, int flags, int *addr_len)
+-#elif LINUX_VERSION_CODE < KERNEL_VERSION(7, 1, 0)
++#elif LINUX_VERSION_CODE < KERNEL_VERSION(6, 16, 0)
+ static int ovpn_tcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
+ 			    int flags, int *addr_len)
+ #else
